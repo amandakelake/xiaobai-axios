@@ -65,33 +65,34 @@ import axios from '../../src/index'
 
 // POST 请求
 
-axios({
-  method: 'post',
-  url: '/base/post',
-  data: {
-    a: 1,
-    b: 2
-  }
-})
+// 请求头 Content-Type: text/plain  不是application/josn 服务端拿不到body
+// axios({
+//   method: 'post',
+//   url: '/base/post',
+//   data: {
+//     a: 1,
+//     b: 2
+//   }
+// })
 
-axios({
-  method: 'post',
-  url: '/base/post',
-  headers: {
-    'content-type': 'application/json;charset=utf-8'
-  },
-  data: {
-    a: 1,
-    b: 2
-  }
-})
+// axios({
+//   method: 'post',
+//   url: '/base/post',
+//   headers: {
+//     'content-type': 'application/json;charset=utf-8'
+//   },
+//   data: {
+//     a: 1,
+//     b: 3
+//   }
+// })
 
-const arr = new Int32Array([21, 31])
-axios({
-  method: 'post',
-  url: '/base/buffer',
-  data: arr
-})
+// const arr = new Int32Array([21, 31])
+// axios({
+//   method: 'post',
+//   url: '/base/buffer',
+//   data: arr
+// })
 
 const paramsString = 'q=URLUtils.searchParams&topic=api'
 const searchParams = new URLSearchParams(paramsString)
@@ -102,25 +103,25 @@ axios({
   data: searchParams
 })
 
-axios({
-  method: 'post',
-  url: '/base/post',
-  data: {
-    a: 1,
-    b: 2
-  }
-}).then(res => {
-  console.log(res)
-})
+// axios({
+//   method: 'post',
+//   url: '/base/post',
+//   data: {
+//     a: 1,
+//     b: 2
+//   }
+// }).then(res => {
+//   console.log(res)
+// })
 
-axios({
-  method: 'post',
-  url: '/base/post',
-  responseType: 'json',
-  data: {
-    a: 3,
-    b: 4
-  }
-}).then(res => {
-  console.log(res)
-})
+// axios({
+//   method: 'post',
+//   url: '/base/post',
+//   responseType: 'json',
+//   data: {
+//     a: 3,
+//     b: 4
+//   }
+// }).then(res => {
+//   console.log(res)
+// })
