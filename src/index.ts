@@ -1,6 +1,7 @@
 import { AxiosRequestConfig } from './types/index'
 import xhr from './xhr'
 import { buildURL } from './helpers/url'
+import { transformRequest } from './helpers/data'
 
 function axios(config: AxiosRequestConfig) {
   processConfig(config)
@@ -9,6 +10,11 @@ function axios(config: AxiosRequestConfig) {
 
 function processConfig(config: AxiosRequestConfig): void {
   config.url = tramsformUrl(config)
+  config.data = transformRequestData(config)
+}
+
+function transformRequestData(config: AxiosRequestConfig): any {
+  return transformRequest(config.data)
 }
 
 function tramsformUrl(config: AxiosRequestConfig): string {
