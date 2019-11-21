@@ -13,7 +13,8 @@ function normalizeHeaderName(headers: any, normalizedName: string): void {
 
 export function processHeaders(headers: any, data: any): any {
   normalizeHeaderName(headers, 'Content-Type')
-
+  // 如果是纯对象，默认是 Content-Type: text/plain  不是application/json  这样服务端拿不到body， 要小改一波
+  // 如果是类似 URLSearchParams 这类数据格式，即使不设置headers的Content-Type， 浏览器会自动添加一个合适的
   if (isPlainObject(data)) {
     if (headers && !headers['Content-Type']) {
       headers['Content-Type'] = 'application/json;charset=utf-8'

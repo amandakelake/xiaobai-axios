@@ -94,25 +94,25 @@ import axios from '../../src/index'
 //   data: arr
 // })
 
-const paramsString = 'q=URLUtils.searchParams&topic=api'
-const searchParams = new URLSearchParams(paramsString)
+// const paramsString = 'q=URLUtils.searchParams&topic=api'
+// const searchParams = new URLSearchParams(paramsString)
+//
+// axios({
+//   method: 'post',
+//   url: '/base/post',
+//   data: searchParams
+// })
 
 axios({
   method: 'post',
   url: '/base/post',
-  data: searchParams
+  data: {
+    a: 1,
+    b: 2
+  }
+}).then(res => {
+  console.log(res)
 })
-
-// axios({
-//   method: 'post',
-//   url: '/base/post',
-//   data: {
-//     a: 1,
-//     b: 2
-//   }
-// }).then(res => {
-//   console.log(res)
-// })
 
 // axios({
 //   method: 'post',
