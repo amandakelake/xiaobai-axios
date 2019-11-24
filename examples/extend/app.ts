@@ -1,42 +1,42 @@
 import axios from '../../src/index'
 
-// axios({
-//   url: '/extend/post',
-//   method: 'post',
-//   data: {
-//     msg: 'hi'
-//   }
-// })
-//
-// axios.request({
-//   url: '/extend/post',
-//   method: 'post',
-//   data: {
-//     msg: 'hello'
-//   }
-// })
-//
-// axios.get('/extend/get')
-//
-// axios.options('/extend/options')
-//
-// axios.delete('/extend/delete')
-//
-// axios.head('/extend/head')
-//
-// axios.post('/extend/post', { msg: 'post' })
-//
-// axios.put('/extend/put', { msg: 'put' })
-//
-// axios.patch('/extend/patch', { msg: 'patch' })
+axios({
+  url: '/extend/post',
+  method: 'post',
+  data: {
+    msg: 'hi'
+  }
+})
 
-// axios({
-//   url: '/extend/post',
-//   method: 'post',
-//   data: {
-//     msg: 'hi'
-//   }
-// })
+axios.request({
+  url: '/extend/post',
+  method: 'post',
+  data: {
+    msg: 'hello'
+  }
+})
+
+axios.get('/extend/get')
+
+axios.options('/extend/options')
+
+axios.delete('/extend/delete')
+
+axios.head('/extend/head')
+
+axios.post('/extend/post', { msg: 'post' })
+
+axios.put('/extend/put', { msg: 'put' })
+
+axios.patch('/extend/patch', { msg: 'patch' })
+
+axios({
+  url: '/extend/post',
+  method: 'post',
+  data: {
+    msg: 'hi'
+  }
+})
 //
 // axios('/extend/post', {
 //   method: 'post',
@@ -56,6 +56,7 @@ interface User {
   age: number
 }
 
+// 定义返回的数据对象格式  一发泛型解决
 function getUser<T>() {
   return axios<ResponseData<T>>('/extend/user')
     .then(res => res.data)
