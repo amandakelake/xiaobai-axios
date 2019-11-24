@@ -1,6 +1,5 @@
 import { isDate, isPlainObject, isURLSearchParams } from './util'
 
-
 // 自定义的encode  避免对一些允许的特殊符号进行转义
 function encode(val: string): string {
   return encodeURIComponent(val)
