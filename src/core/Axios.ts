@@ -1,7 +1,28 @@
-import { AxiosPromise, AxiosRequestConfig, Method } from '../types'
+import { AxiosPromise, AxiosRequestConfig, Method, RejectedFn, ResolvedFn } from '../types'
 import dispatchRequest from './dispatchRequest'
+import InterceptorManager from './InterceptorManager'
+
+interface Interceptors {
+  request: InterceptorManager<AxiosRequestConfig>
+  response: InterceptorManager<AxiosPromise>
+}
+
+interface PromiseChain<T> {
+  // resolved 也可能是一个 dispatchRequest 类型
+  resolved: ResolvedFn<T> | ((config: AxiosRequestConfig) => AxiosPromise)
+  // 初始化为undefined
+  rejected?: RejectedFn
+}
 
 export default class Axios {
+  interceptors: Interceptors
+
+  constructor() {
+    this.interceptors = {
+      request: new InterceptorManager<AxiosRequestConfig>(),
+      response: new InterceptorManager<AxiosPromise>()
+    }
+  }
 
   // 实际上 下面所有方法最终指向的都是这个request方法
   request(url: any, config?: any): AxiosPromise {
@@ -15,7 +36,33 @@ export default class Axios {
     } else {
       config = url
     }
-    return dispatchRequest(config)
+
+    const chain: PromiseChain<any>[] = [{
+      resolved: dispatchRequest,
+      rejected: undefined
+    }]
+
+    this.interceptors.request.forEach(interceptor => {
+      // 注意执行顺序  后添加的先执行
+      chain.unshift(interceptor)
+    })
+
+    this.interceptors.response.forEach(interceptor => {
+      // res 后添加后执行
+      chain.push(interceptor)
+    })
+
+    let promise = Promise.resolve(config)
+
+    while(chain.length) {
+      // 断言非空 不然会读取到undefined
+      const {resolved, rejected} = chain.shift()!
+      promise = promise.then(resolved, rejected)
+    }
+
+    return promise
+
+    // return dispatchRequest(config)
   }
 
   get(url: string, config?: AxiosRequestConfig): AxiosPromise {

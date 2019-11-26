@@ -16,6 +16,11 @@ export type Method =
 
 // axios是个混合对象 给它里面的方法定义接口
 export interface Axios {
+  interceptors: {
+    request: AxiosInterceptorManager<AxiosRequestConfig>
+    response: AxiosInterceptorManager<AxiosPromise>
+  }
+
   request<T = any>(config: AxiosRequestConfig): AxiosPromise<T>
 
   get<T = any>(url: string, config?: AxiosRequestConfig): AxiosPromise<T>
@@ -63,4 +68,20 @@ export interface AxiosError extends Error{
   code?: string | null
   request?: any
   response?: AxiosResponse
+}
+
+// 既可以接收AxiosRequestConfig类型参数 也可以接收一个promise类型参数 此处需要泛型
+export interface AxiosInterceptorManager<T> {
+  // 返回number是id 是给eject删除拦截器用的
+  use(resolved: ResolvedFn<T>, rejected?: RejectedFn): number
+
+  eject(id: number): void
+}
+
+export interface ResolvedFn<T> {
+  (val: T): T | Promise<T>
+}
+
+export interface RejectedFn {
+  (error: any): any
 }

@@ -18,7 +18,6 @@ export function isURLSearchParams(val: any): val is URLSearchParams {
   return typeof val !== 'undefined' && val instanceof URLSearchParams
 }
 
-// TODO 混合对象的方法，还没搞懂这语法
 // T & U 交叉类型
 // as 断言，开发者假设自己很清楚该属性的类型，强行断言
 export function extend<T, U>(to: T, from: U): T & U {

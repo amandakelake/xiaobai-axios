@@ -26,6 +26,7 @@ axios.interceptors.response.use(res => {
   return res
 })
 
+// 删除2
 axios.interceptors.response.eject(interceptor)
 
 axios({
